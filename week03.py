@@ -32,10 +32,10 @@
 # print(set(duplicate_city(cities)))
 
 def inters(l1,l2):
-    l3 = list()
-    for v in l1:
-        if v in l2:
-            l3.append()
+    s1 = set(l1)
+    s2 = set(l2)
+    # return list(s1.intersection(s1 & s2))
+    return list(s1.union(s2)) # 교집합
 
 l1 = [45, 5, 22, 31, 7, 19]
 l2 = [2, 1, 5, 22, 7, 38, 27, 19, 13, 41]
