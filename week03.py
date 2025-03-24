@@ -12,6 +12,13 @@ print(group_rating)
 
 # set
 
+def duplicate_city(cities):
+    result_city = list()
+    s = set()
+
+    for city in cities:
+        l1 =
+
 cities = ['Suwon', 'Hwasung', 'Incheon', 'Incheon', 'Bucheon', 'Incheon', 'Seoul']
 cities = set(cities) # 중복이 없어진다. 딕셔너리 키만 잇는 버전.
 cities.add('Seoul')
