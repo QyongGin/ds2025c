@@ -1,3 +1,5 @@
+# Chapter8 배열, chapter1 공간 복잡도
+
 # groups = ['HOT', 'Seventeen', 'Black Pink', 'NJZ']
 # ratings = [1, 2, 4, 3]
 #
