@@ -14,6 +14,8 @@ print(group_rating)
 
 cities = ['Suwon', 'Hwasung', 'Incheon', 'Incheon', 'Bucheon', 'Incheon', 'Seoul']
 cities = set(cities) # 중복이 없어진다. 딕셔너리 키만 잇는 버전.
+cities.add('Seoul')
+cities.add('Antang')
 print(cities)
 
 
