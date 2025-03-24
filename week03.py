@@ -12,6 +12,7 @@ print(group_rating)
 
 # set
 
+cities = ['Suwon', 'Hwasung', 'Incheon', 'Incheon', 'Bucheon', 'Incheon', 'Seoul']
 
 
 
