@@ -65,7 +65,8 @@ import array # array 모듈 불러오기
 
 arr = array.array('f',[99, 0, -7, 0, 16])
     # 배열array는 '동질적 자료구조'로서 한 가지의 데이터 타입만 담는다.
-    # '정적 자료구조'의 특징을 가져 크기를 바꾸지 못한다.
+    # '정적 자료구조'의 특징을 가져 크기(typecode)를 바꾸지 못한다.
+    # 크기(typecode)를 변경하지 못할뿐이지 배열의 길이가 동적으로 변경되지 않는다는 의미는 아니다.
     # array.array 생성, 두 개의 매개변수 'f'(데이터타입 실수) 99~16(리스트)
 for i in range(len(arr)): # 배열의 길이만큼 5번(0~4) 반복, 대입.
     print(f"{arr[i]:5} {id(arr[i])}")
@@ -182,6 +183,30 @@ l1 = [45, 5, 22, 31, 7, 19]
 l2 = [2, 1, 5, 22, 7, 38, 27, 19, 13, 41]
 print(inters(l1, l2))
 """
+
+# Exercies
+# 음이 아닌 정수로 구성된 배열 an_array에서 짝수만 추출한 배열과 홀수만 추출한 배열을 만들어 보세요.
+# array는 크기(typecode)가 변하지 못하지 길이는 변할 수 있다.
+# for문은 항상 횟수를 정해줘야 한다. range를 적극 사용하자.
+# array는 기본 출력하면 별로기 때문에 list()를 사용하여 가독성을 높이자.
+
+import array
+
+an_array = array.array('i',[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+even = array.array('i',[])
+odd = array.array('i',[])
+
+for i in range(len(an_array)): # 횟수를 정해줘야 했다. 1. an_array 2. len(an_array) 실패.
+    element = an_array[i] # 0~9번째 인덱스 요소
+    if element % 2 == 0:
+        even.append(element)
+    else:
+        odd.append(element)
+
+print(list(an_array))
+print(list(even))
+print(list(odd))
+
 
 
 
