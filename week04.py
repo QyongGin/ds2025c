@@ -39,6 +39,18 @@ class LinkedList:
         current.link = Node(data) # 헤드는 현재 (8|none)이므로 data로 들어온 10을 가리키게 된다.
         # 10데이터를 가진 노드는 이제 -9를 가리키는 링크를 가진다.
 
+    def remove(self, target): # 노드 제거 -> 링크만 조절하면. 이전 노드의 위치를 가진 변수 -> 프리비우스 필요.
+        if self.head.data == target: # self.head는 노드 자체를 가리킴. self.head.data로 데이터와 비교해야 한다.
+            self.head = self.head.link
+            return
+        current = self.head
+        privious = None
+        while current :
+            if current.data == target:
+                privious.link = current.link
+            privious = current
+            current = current.link
+
     def seach(self,target):
         current = self.head  # 8|10
         while current.link: # 현재 노드에 링크가 있다면
@@ -62,16 +74,21 @@ class LinkedList:
             current = current.link # 8출력 후 10데이터노드로 이동.
         return out_texts + "END"
 
-# ll = LinkedList() #LinkedList() 객체 생성
-# ll.append(8)
-# ll.append(10)
-# ll.append(-9) # current.link는 현재 Node (데이터 10)
-# print(ll)
-# print(ll.seach(99))
-# print(ll.seach(10))
+ll = LinkedList() #LinkedList() 객체 생성
+ll.append(8)
+ll.append(10)
+ll.append(-9) # current.link는 현재 Node (데이터 10)
+print(ll)
+print(ll.seach(99))
+print(ll.seach(10))
+ll.remove(10)
+ll.remove(8)
+print(ll)
 
-ll = LinkedList()
-for _ in range(15): # 안쓰는 변수 i는 _로 수정. for문은 어차피 0부터 시작.
-    ll.append(random.randint(1,15))
-print(ll) # str 통하여 만든 과정 print
-print(ll.seach(4))
+# ll = LinkedList()
+# for _ in range(15): # 안쓰는 변수 i는 _로 수정. for문은 어차피 0부터 시작.
+#     ll.append(random.randint(1,15))
+# print(ll) # str 통하여 만든 과정 print
+# print(ll.seach(4))
+
+
