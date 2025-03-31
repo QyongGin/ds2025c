@@ -45,7 +45,8 @@ class LinkedList:
         current = self.head
         out_texts = ""
         while current is not None:
-            out_texts = out_texts + str(current.data) + " -> "
+            # out_texts = out_texts + str(current.data) + " -> " 1 번째 방법.
+            out_texts = out_texts + f"{current.data} -> " # 2 번째 방법.
             current = current.link
         return out_texts + "END"
 
