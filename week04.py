@@ -31,10 +31,20 @@ class LinkedList:
         if not self.head: # 객체 헤드값 none -> flase -> not으로 true.
             self.head = Node(data) # head는 Node 객체 (필드:8 | 링크:None)를 가리키게 된다.
             return
-        current = self.head #
-        while current.link: #
-            current = current.link # 현재 current가 갖고있는 링크를 이동.
-        current.link = Node(data) # Node (데이터 10 | 링크:None)
+        current = self.head # current는 self.head 헤드를 가리킨다.
+        while current.link: # 헤드가 가리키는 링크가 있다면 현재 10을 가리키는 중이다.
+            current = current.link # 현재 current가 갖고있는 링크를 이동. current는 헤드가 가리키는 10 노드가 된다.
+        current.link = Node(data) # 헤드는 현재 (8|none)이므로 data로 들어온 10을 가리키게 된다.
+        # 10데이터를 가진 노드는 이제 -9를 가리키는 링크를 가진다.
+
+    def seach(self,target):
+        current = self.head  # 8|10
+        while current.link: # 현재 노드에 링크가 있다면
+            if target == current.data: # 타겟과 노드의 데이터 비교.
+                return f"{target}을(를) 찾았습니다."
+            else: # 아니라면 다음 노드로 이동.
+                current = current.link
+        return f"{target}은(는) 링크드 리스트 안에 존재하지 않습니다."
 
     def __str__(self): # 노드를 출력하기 위해.
         # current = self.head
@@ -42,12 +52,12 @@ class LinkedList:
         #     print(current.data)
         #     current = current.link
         # return "end"
-        current = self.head
+        current = self.head # 헤드를 가리킨다. (8|10데이터노드링크)
         out_texts = ""
         while current is not None:
             # out_texts = out_texts + str(current.data) + " -> " 1 번째 방법.
             out_texts = out_texts + f"{current.data} -> " # 2 번째 방법.
-            current = current.link
+            current = current.link # 8출력 후 10데이터노드로 이동.
         return out_texts + "END"
 
 ll = LinkedList() #LinkedList() 객체 생성
@@ -55,6 +65,7 @@ ll.append(8)
 ll.append(10)
 ll.append(-9) # current.link는 현재 Node (데이터 10)
 print(ll)
-
+print(ll.seach(99))
+print(ll.seach(10))
 
 
