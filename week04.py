@@ -40,14 +40,17 @@ class LinkedList:
         # 10데이터를 가진 노드는 이제 -9를 가리키는 링크를 가진다.
 
     def remove(self, target): # 노드 제거 -> 링크만 조절하면. 이전 노드의 위치를 가진 변수 -> 프리비우스 필요.
-        if self.head.data == target: # self.head는 노드 자체를 가리킴. self.head.data로 데이터와 비교해야 한다.
+        current = self.head
+        if current.data == target: # self.head는 노드 자체를 가리킴. self.head.data로 데이터와 비교해야 한다.
             self.head = self.head.link
+            current.link = None
             return
         current = self.head
         privious = None
         while current :
             if current.data == target:
                 privious.link = current.link
+                current.link = None # 10을 제거한다 치면 10을 가리키는 링크와 10을 가진 노드가 가리키는 링크도 사라진다. 10|none 운영체제가 사용하지 않는 정보를 수거해간다.
             privious = current
             current = current.link
 
