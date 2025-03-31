@@ -18,6 +18,8 @@
 # 2. 임의 접근이 불가능. (상수 시간내 무작위로 데이터에 접근하는 경우) 반드시 헤드에서 시작해서 포인터를 따라 움직이며
 # 원하는 요소에 도달할 때 까지 반복해야 한다.
 
+import random
+
 class Node:
     def __init__(self, data, link=None): #
         self.data = data # 데이터
@@ -60,12 +62,16 @@ class LinkedList:
             current = current.link # 8출력 후 10데이터노드로 이동.
         return out_texts + "END"
 
-ll = LinkedList() #LinkedList() 객체 생성
-ll.append(8)
-ll.append(10)
-ll.append(-9) # current.link는 현재 Node (데이터 10)
-print(ll)
-print(ll.seach(99))
-print(ll.seach(10))
+# ll = LinkedList() #LinkedList() 객체 생성
+# ll.append(8)
+# ll.append(10)
+# ll.append(-9) # current.link는 현재 Node (데이터 10)
+# print(ll)
+# print(ll.seach(99))
+# print(ll.seach(10))
 
-
+ll = LinkedList()
+for _ in range(15): # 안쓰는 변수 i는 _로 수정. for문은 어차피 0부터 시작.
+    ll.append(random.randint(1,15))
+print(ll) # str 통하여 만든 과정 print
+print(ll.seach(4))
