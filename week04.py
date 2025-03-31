@@ -33,12 +33,27 @@ class LinkedList:
             return
         current = self.head #
         while current.link: #
-            current = current.link
+            current = current.link # 현재 current가 갖고있는 링크를 이동.
         current.link = Node(data) # Node (데이터 10 | 링크:None)
+
+    def __str__(self): # 노드를 출력하기 위해.
+        # current = self.head
+        # while current is not None:
+        #     print(current.data)
+        #     current = current.link
+        # return "end"
+        current = self.head
+        out_texts = ""
+        while current is not None:
+            out_texts = out_texts + str(current.data) + " -> "
+            current = current.link
+        return out_texts + "END"
 
 ll = LinkedList() #LinkedList() 객체 생성
 ll.append(8)
 ll.append(10)
 ll.append(-9) # current.link는 현재 Node (데이터 10)
 print(ll)
+
+
 
