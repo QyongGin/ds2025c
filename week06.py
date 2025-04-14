@@ -30,6 +30,7 @@ class Queue:
         self.front = self.front.link  # 이제 선입은 다음 입력됐던 값으로
         if self.front is None:        # 다음 값이 없다면
             self.rear = None          # 마지막 값이 삭제됐으니 rear도 None 설정
+        temp.link = None
         return temp.data
 
 q = Queue()
