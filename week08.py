@@ -45,8 +45,28 @@ if __name__ == "__main__":
     for number in numbers:
         root = insert(root, number)
 
+def search(root, target):
+    current = root
+    while True:
+        if target == current.data:
+            print(f"{target}을(를) 찾았습니다")
+            break
+        elif target < current.data:
+            if current.left is None:
+                print(f"{target}이(가) 존재하지 않습니다")
+                break
+            current = current.left
+        else:
+            if current.right is None:
+                print(f"{target}이(가) 존재하지 않습니다")
+                break
+            current = current.right
+
 print("BST 구성 완료.")
 post_order(root) # 3-9-8-15-10
+
+search(root,int(input()))
+
 
 # find_number = int(input())
 # current = root
