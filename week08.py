@@ -14,48 +14,53 @@ def post_order(node):
         post_order(node.right)
         print(node.data, end = "->")
 
-if __name__ == "__main__":
-    numbers = [10,15,8,3,9]
-    root = None
+def insert(root, value):
+    new_node = TreeNode()
+    new_node.data = value
 
-    node = TreeNode()
-    node.data = numbers[0]
-    root = node
+    if root is None:
+        return new_node
 
-    # 2번째 원소부터
-    for number in numbers[1:]:
-        node = TreeNode()
-        node.data = number
-        current = root # 항상 첫 노드부터 비교
-        while True:
-            if number < current.data:
-                if current.left is None: # 작은수 left
-                    current.left = node
-                    break
-                current = current.left
-
-            else:
-                if current.right is None: # 큰수 right
-                    current.right = node
-                    break
-                current = current.right
-
-print("BST 구성 완료.")
-post_order(root)
-
-find_number = int(input())
-current = root
-while True:
-        if find_number == current.data:
-            print(f"{find_number}을(를) 찾았습니다")
-            break
-        elif find_number < current.data:
-            if current.left is None:
-                print(f"{find_number}이(가) 존재하지 않습니다")
+    current = root  # 항상 첫 노드부터 비교
+    while True:
+        if value < current.data:
+            if current.left is None:  # 작은수 left
+                current.left = new_node
                 break
             current = current.left
+
         else:
-            if current.right is None:
-                print(f"{find_number}이(가) 존재하지 않습니다")
+            if current.right is None:  # 큰수 right
+                current.right = new_node
                 break
-            current = current.right
+            current = current.right # move
+    return root # 되돌아가기
+
+if __name__ == "__main__":
+    numbers = [10, 15, 8, 3, 9]
+    # numbers = [10,15,8,3,9,1,7,100]
+    root = None
+
+    # 1
+    for number in numbers:
+        root = insert(root, number)
+
+print("BST 구성 완료.")
+post_order(root) # 3-9-8-15-10
+
+# find_number = int(input())
+# current = root
+# while True:
+#         if find_number == current.data:
+#             print(f"{find_number}을(를) 찾았습니다")
+#             break
+#         elif find_number < current.data:
+#             if current.left is None:
+#                 print(f"{find_number}이(가) 존재하지 않습니다")
+#                 break
+#             current = current.left
+#         else:
+#             if current.right is None:
+#                 print(f"{find_number}이(가) 존재하지 않습니다")
+#                 break
+#             current = current.right
