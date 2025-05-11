@@ -18,30 +18,30 @@ front = rear = -1
 ```
 
 ## 데이터 삽입 : enQueue
-
+삽입은 rear(꼬리)가 1씩 이동하며 각 index에 차례대로 데이터를 삽입한다.
 ```python
 queue = [None, None, None, None, None]
 front = rear = -1
 
 rear += 1 # index[0]부터 차례대로 데이터 삽입 
-queue[rear] = "일번"
+queue[rear] = "one"
 rear += 1
-queue[rear] = "이번"
+queue[rear] = "two"
 rear += 1
-queue[rear] = "삼번"
+queue[rear] = "three"
 
 print("---Queue State---")
 print('[Exit] <--', end = ' ')
 for i in range(0, len(queue), 1): # 0(start)부터 4(stop)까지 1(step)씩 증가
   print(queue[i],end = ' ')
 print('<-- [Entrance]')
-# [Exit] <-- 일번 이번 삼번 None None <-- [Entrance]
+# [Exit] <-- one two three None None <-- [Entrance]
 ```
 
 ## 데이터 추출 : deQueue
-
+추출은 front(머리)가 1씩 이동하며 각 index의 데이터를 출력 후 삭제한다.
 ```python
-queue = ["일번", "이번", "삼번", None, None]
+queue = ["one", "two", "three", None, None]
 front = -1
 rear = 2
 
@@ -55,5 +55,35 @@ front += 1
 data = queue[front]
 queue[front] = None
 print('deQueue -->', data)
-# [Exit] <-- None 이번 삼번 None None <-- [Entrance]
+# [Exit] <-- one two three None None <-- [Entrance]
+# deQueue --> one
+# [Exit] <-- None two three None None <-- [Entrance]
+```
+
+## 큐 초기화
+
+SIZE값만 변경하면 원하는 크기의 빈 큐 생성(초기화)
+```python
+SIZE = 5 # 큐 크기
+queue = [None for _ in range(SIZE)] # [None, None, None, None, None]
+front = rear = -1
+```
+
+## 큐가 꽉 찼는지 확인하는 함수
+rear 값이 'queue SIZE-1'과 같다면 큐가 꽉 찬 상태
+```python
+def isQueueFull():
+  global SIZE, queue, front, rear # 전역변수
+  if (rear == SIZE-1):
+    return True
+  else:
+    return False
+
+SIZE = 5
+queue = ["one", "two", "three", "four", "five"]
+front = -1
+rear = 4
+
+print("큐가 꽉 찼는지 여부 ==>", isQueueFull())
+# 큐가 꽉 찼는지 여부 ==> True
 ```
