@@ -79,11 +79,17 @@ def delete(node, value):
             return node.left
 
         # 자식 노드가 2개인 경우
-        min_larger_node = node.right
-        while min_larger_node.left:
-            min_larger_node = min_larger_node.left
-        node.data = min_larger_node.data
-        node.right = delete(node.right, min_larger_node.data)
+        # min_larger_node = node.right
+        # while min_larger_node.left:
+        #     min_larger_node = min_larger_node.left
+        # node.data = min_larger_node.data
+        # node.right = delete(node.right, min_larger_node.data)
+
+        max_minimul_node = node.left
+        while max_minimul_node.right:
+            max_minimul_node = max_minimul_node.right
+        node.data = max_minimul_node.data
+        node.left = delete(node.left, max_minimul_node.data)
 
     return node
 
