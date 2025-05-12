@@ -13,9 +13,7 @@ class TreeNode:
 def post_order(node):
     if node:
         post_order(node.left)
-        print()
         post_order(node.right)
-        print()
         print(node.data, end = "->")
 
 def insert(root, value):
@@ -49,7 +47,7 @@ if __name__ == "__main__":
     for number in numbers:
         root = insert(root, number)
 
-def search(root, target):
+def search(target):
     current = root
     while True:
         if target == current.data:
@@ -69,7 +67,8 @@ def search(root, target):
 print("BST 구성 완료.")
 post_order(root) # 3-9-8-15-10
 
-search(root,int(input()))
+target_num = int(input("찾는 값 입력 : "))
+search(target_num)
 
 
 # find_number = int(input())
