@@ -14,7 +14,8 @@ def post_order(node):
     if node:
         post_order(node.left)
         post_order(node.right)
-        print(node.data, end = "->")
+        print(node.data, end = "-> ")
+
 
 def insert(root, value):
     new_node = TreeNode()
@@ -51,39 +52,21 @@ def search(target):
     current = root
     while True:
         if target == current.data:
-            print(f"{target}을(를) 찾았습니다")
-            break
+            return True
         elif target < current.data:
             if current.left is None:
-                print(f"{target}이(가) 존재하지 않습니다")
-                break
+                return False
             current = current.left
         else:
             if current.right is None:
-                print(f"{target}이(가) 존재하지 않습니다")
-                break
+                return False
             current = current.right
 
 print("BST 구성 완료.")
 post_order(root) # 3-9-8-15-10
 
 target_num = int(input("찾는 값 입력 : "))
-search(target_num)
-
-
-# find_number = int(input())
-# current = root
-# while True:
-#         if find_number == current.data:
-#             print(f"{find_number}을(를) 찾았습니다")
-#             break
-#         elif find_number < current.data:
-#             if current.left is None:
-#                 print(f"{find_number}이(가) 존재하지 않습니다")
-#                 break
-#             current = current.left
-#         else:
-#             if current.right is None:
-#                 print(f"{find_number}이(가) 존재하지 않습니다")
-#                 break
-#             current = current.right
+if search(target_num):
+    print(f"{target_num}을(를) 찾았습니다")
+else:
+    print(f"{target_num}이(가) 존재하지 않습니다")
