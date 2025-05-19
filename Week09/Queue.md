@@ -72,7 +72,7 @@ front = rear = -1
 ## 큐가 꽉 찼는지 확인하는 함수
 rear 값이 'queue SIZE-1'과 같다면 큐가 꽉 찬 상태
 ```python
-def isQueueFull():
+def isQueueFull(): # is로 시작하는 함수는 반환값이 bool 타입인 경우가 많다.
   global SIZE, queue, front, rear # 전역변수
   if (rear == SIZE-1):
     return True
@@ -87,3 +87,79 @@ rear = 4
 print("큐가 꽉 찼는지 여부 ==>", isQueueFull())
 # 큐가 꽉 찼는지 여부 ==> True
 ```
+
+## 큐에 데이터를 삽입하는 함수
+
+```python
+def enQueue(data): # 함수 하나에 하나의 역할만 부여.
+  global SIZE, queue, front, rear
+  if (isQueueFull()):
+    print("큐가 꽉 찼습니다.")
+    return
+  rear += 1
+  queue[rear] = data
+
+SIZE = 5
+queue = ["일",None,None,None,None]
+front = -1
+rear = 0
+enQueue("이") # ['일','이',None,None,None]
+```
+
+## 큐가 비었는지 확인하는 함수
+front와 rear의 값이 같다면 큐가 빈 상태
+입력하지 않았다면 '-1'로 같다.<br>
+rear가 3이라 가정했을 때 front는 삭제하려고 +1씩 이동하므로 
+rear가 머무는 요소까지 다 삭제했다면 rear = 3 front = 3으로 같다. 즉, 비었다.
+```python
+def isQueueEmpty():
+  global SIZE, queue, front, rear
+  if (front == rear):
+    return True
+  else:
+    return False
+
+SIZE = 5
+queue = [None for _ in range(SIZE)] # None 값을 넣기 때문에 _ 사용
+front = rear = -1 # 큐가 비었는지 여부 => True
+```
+
+## 큐에서 데이터를 추출하는 함수
+```python
+def deQueue():
+  global SIZE,queue,front,rear
+  if (isQueueEmpty()):
+    print("큐가 비었습니다.")
+    return None
+  front += 1
+  data = queue[front] # 추출할 값 저장
+  queue[front] = None
+  return data
+
+SIZE = 5
+queue = ['일','이',None,None,None]
+front = -1
+rear = 1
+
+retData = deQueue()
+print("추출한 데이터 -->", retData) # '일'
+print(queue) # [None,'이',None,None,None]
+```
+## peek(픽) : 추출될 데이터를 큐에 그대로 두고 확인만 한다.
+```python
+def peek():
+  global SIZE, queue, front, rear
+  if (isQueueEmprty()):
+    print("큐가 비었습니다.")
+    return None
+  return Queue[front+1]
+# front를 저장하지 않아서 peek을 계속 사용해도 삭제될 값만 그대로 반환한다.
+
+SIZE = 5
+queue = [None,'이',None,None,None]
+front = 0
+rear = 1
+print(peek()) # '이'
+```
+
+
