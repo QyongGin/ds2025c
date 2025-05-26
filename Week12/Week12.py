@@ -1,56 +1,115 @@
-# 2025-05-26
+# 최소 비용 신장 트리는 가중치 그래프에서 만들 수 있는 신장 트리 중 합계가 최소인 것
+# 최소 비용 신장 트리 구현 방법 : 크루스컬(Kruskal) 알고리즘, 프림(Prim) 알고리즘
+# 크루스컬 : 사이클이 생기지 않도록 처리한다. Cost가 10, 20, 30 일때 가장 작은 10을 지향하는 알고리즘.
+# 가중치가 높은 간선부터 제거하지만 유일한 간선이었다면 취소한다. 탐색과 백업 활용
+# 제거는 가중치를 0으로 만들어 실행.
 
-# deque : 양방향 큐
-# append, popleft
-# 안 보고 짤 수 있게 이해 필요
+class Graph:
+	def __init__ (self, size):
+		self.graph = [[0 for _ in range(size)] for _ in range(size)]
 
-from collections import deque
+def print_graph(g) :
+	print(' ', end = ' ')
+	for v in range(len(g.graph)) :
+		print(name_ary[v], end =' ')
+	print()
+	for row in range(len(g.graph)) :
+		print(name_ary[row], end =' ')
+		for col in range(len(g.graph)) :
+			print(f"{g.graph[row][col]:2d}", end=' ')
+		print()
+	print()
 
-d = deque([17, 55, 123])
-d.append(7)
-d.appendleft(100)
-for _ in range(len(d)):
-    print(d.popleft())
+def find_vertex(g, find_vtx) :
+	stack = list()
+	visited_ary = list()
 
-graph = [
-    [0, 1, 1, 0, 0, 0, 0, 0],
-    [1, 0, 0, 1, 0, 0, 0, 0],
-    [1, 0, 0, 1, 0, 0, 0, 0],
-    [0, 1, 1, 0, 1, 1, 1, 0],
-    [0, 0, 0, 1, 0, 1, 0, 0],
-    [0, 0, 0, 1, 1, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0, 0, 1, 0]
-]
+	current = 0	# 시작 정점
+	stack.append(current)
+	visited_ary.append(current)
 
-# 깊이 우선 탐색 DFS Depth First Search
-# 그래프에서 깊은 부분을 우선적으로 탐색하는 알고리즘.
-# DFS Function create
-def dfs(g, i, visited):
-    visited[i] = 1 # visited node visited 표시
-    print(chr(ord('A') + i ), end = ' ')
-    for j in range(len(graph)): # 다 방문 했다면 자신을 호출한 행으로 이동.
-        if g[i][j] == 1 and not visited[j]: # 1 : 연결되어있고 not visited 방문하지 않은 노드
-            dfs(g,j,visited) # 조건 true 행 실행
+	while stack:
+		next = None
+		for vertex in range(graph_size):
+			if g.graph[current][vertex] != 0:  # 연결되어 있으면
+				if vertex in visited_ary:	# 방문한 적이 있는 정점
+					pass
+				else :			# 방문한 적이 없으면
+					next = vertex  #  다음 정점으로 지정
+					break
 
-# 너비 우선 탐색 BFS ( ex : sns )
-# Use Queue
-# Breath First Search
+		if next is not None:				# 다음에 방문할 정점이 있는 경우
+			current = next
+			stack.append(current)  # push
+			visited_ary.append(current)  # push
+		else :					# 다음에 방문할 정점이 없는 경우
+			current = stack.pop()
 
-def bfs(g, i, visited):
-    q = deque([i]) # queue 방문한 노드 순서 저장하는 변수
-    visited[i] = 1
-    while q:
-        i = q.popleft() # 먼저 방문했던 노드 순서대로 내보내고 탐색
-        print(chr(ord('A') + i), end=' ')
-        for j in range(len(graph)):  # 다 방문 했다면 자신을 호출한 행으로 이동.
-            if g[i][j] == 1 and not visited[j]:
-                q.append(j)
-                visited[j] = 1
+	if find_vtx in visited_ary:
+		return True
+	else :
+		return False
 
-# v_dfs = [0,0,0,0,0,0,0,0] A,B,C,D,E,F,G,H
-visited_dfs = [ 0 for _ in range(len(graph))] # 방문 유무 0,1 list
-visited_bfs = [0 for _ in range(len(graph))]
-dfs(graph, 6, visited_dfs)
-print()
-bfs(graph, 4, visited_bfs)
+
+g1 = None
+name_ary = ['춘천', '서울', '속초', '대전', '광주', '부산']
+chuncheon, seoul, sokcho, daejeon, gwangju, busan = 0, 1, 2, 3, 4, 5
+
+
+graph_size = 6
+g1 = Graph(graph_size)
+g1.graph[chuncheon][seoul] = 10; g1.graph[chuncheon][sokcho] = 15
+g1.graph[seoul][chuncheon] = 10; g1.graph[seoul][sokcho] = 40; g1.graph[seoul][daejeon] = 11; g1.graph[seoul][gwangju] = 50
+g1.graph[sokcho][chuncheon] = 15; g1.graph[sokcho][seoul] = 40; g1.graph[sokcho][daejeon] = 12
+g1.graph[daejeon][seoul] = 11; g1.graph[daejeon][sokcho] = 12; g1.graph[daejeon][gwangju] = 20; g1.graph[daejeon][busan] = 30
+g1.graph[gwangju][seoul] = 50; g1.graph[gwangju][daejeon] = 20; g1.graph[gwangju][busan] = 25
+g1.graph[busan][daejeon] = 30; g1.graph[busan][gwangju] = 25
+
+print('도시 간 도로 건설을 위한 전체 연결도')
+print_graph(g1)
+
+edge_ary = []  # 결과적으로 2d list
+for i in range(graph_size) :
+	for k in range(graph_size) :
+		if g1.graph[i][k] != 0 :
+			edge_ary.append([g1.graph[i][k], i, k])
+print(edge_ary)
+
+edge_ary.sort(reverse=True)
+print(edge_ary)
+
+new_ary = list()
+for i in range(1, len(edge_ary), 2):
+	new_ary.append(edge_ary[i])
+print(new_ary)
+
+index = 0
+while len(new_ary) > graph_size - 1:	# 간선의 개수가 '정점 개수-1'일 때까지 반복
+	start = new_ary[index][1]
+	end = new_ary[index][2]
+	save_cost = new_ary[index][0]
+
+	g1.graph[start][end] = 0
+	g1.graph[end][start] = 0
+
+	start_reachable = find_vertex(g1, start)
+	end_reachable = find_vertex(g1, end)
+
+	if start_reachable and end_reachable :
+		del new_ary[index]
+	else:
+		g1.graph[start][end] = save_cost
+		g1.graph[end][start] = save_cost
+		index = index + 1
+
+print('최소 비용의 도로 연결도')
+print_graph(g1)
+
+total_cost = 0
+for i in range(graph_size):
+	for k in range(graph_size):
+		if g1.graph[i][k] != 0:
+			total_cost = total_cost + g1.graph[i][k]
+
+total_cost = total_cost // 2
+print(f"최소 비용의 도로 건설 비용 :  {total_cost}")
