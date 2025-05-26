@@ -108,3 +108,4 @@ for i in range(graph_size):
 total_cost = total_cost // 2
 print(f"최소 비용의 도로 건설 비용 :  {total_cost}")
 
+
