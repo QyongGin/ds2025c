@@ -92,3 +92,75 @@ print(node5.data)
 print(node1.left.right.data) # node1.left->node2.right->node5 'zz'
 ```
 <img width="444" alt="image" src="https://github.com/user-attachments/assets/046fdb22-dbef-46c7-b694-2e0635162a95" />
+
+# 깊이 우선 이동 Depth-First Traversal
+- 이진 트리의 모든 노드를 한 방향으로 방문하고 다음 형제 노드로 이동한다.
+- 깊이 우선 이동은 다시 전위 Pre order, 후위 Post order, 중위 In order로 나뉜다.
+
+### 전위 이동 Pre order
+- 전위 이동은 루트 노드에서 시작해 왼쪽으로 이동하고 오른쪽 서브트리로 이동한다.
+```python
+def pre_order(node): # 명확하게 명시하는 방법
+  if node is None: # None이다 => 자식 노드가 없다. => 백트래킹
+    return         
+  print(node.data, end = '-') # 루트 노드 출력
+  pre_order(node.left)  # 왼쪽 자식 노드가 None이 아니라면 계속 이동. 백트래킹 됐다면 다음 코드로 이동. 
+  pre_order(node.right) # 오른쪽 자식 노드로 계속 이동. 백트래킹 됐다면 다음 코드로 이동.
+  # 끝나면 불러온 노드로 돌아가 다시 코드 시행.
+```
+<img width="510" alt="image" src="https://github.com/user-attachments/assets/dc634c16-4cbb-40b2-b2fe-bd136f254a22" />
+
+### 후위 이동 Post order
+- 후위 이동은 트리의 왼쪽에서 시작해 오른쪽 서브트리로 이동한 다음 루트노드에서 끝난다.
+```python
+# 왼쪽과 오른쪽 자식 노드 이동. 자식노드 모두 None이라면 print 후 백트래킹 
+
+def post_order(node):
+  if node: # 더 간결한 코드 
+    post_order(node.left)
+    post_order(node.right)
+    print(node.data, end = '-')
+```
+<img width="510" alt="image" src="https://github.com/user-attachments/assets/2ac14a48-e2a0-4316-9783-1c3c7c97a76e" />
+
+### 중위 이동 In order
+- 노드의 값을 출력하는 작업을 두 가지 재귀 호출의 '중간'에 수행한다.
+- 중위 이동은 트리의 왼쪽에서 시작해 루트 노드로 이동 후 다음 오른쪽 서브트리로 이동한다.
+```python
+def in_order(node):
+  if node:
+    in_order(node.left)
+    print(node.data, end = '-')
+    in_order(node.right)
+```
+<img width="510" alt="image" src="https://github.com/user-attachments/assets/938914ab-4859-4f7a-b248-f6edfe4ebeb0" />
+
+```python
+if __name__ == "__main__":
+    numbers = [10, 15, 8, 3, 9]
+    root = None
+
+    node = TreeNode()
+    node.data = numbers[0]
+    root = node
+
+    # 2번째 원소 부터 마지막 원소까지
+    for number in numbers[1:]:
+        node = TreeNode()
+        node.data = number
+        current = root
+        while True:
+            if number < current.data:
+                if current.left is None:
+                    current.left = node
+                    break
+                current = current.left  # move
+            else:
+                if current.right is None:
+                    current.right = node
+                    break
+                current = current.right  # move
+
+    print("BST 구성 완료")
+```
+ 
