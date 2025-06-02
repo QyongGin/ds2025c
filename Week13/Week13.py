@@ -3,50 +3,32 @@
 # 시험 하이테크센터 강당 16일 월요일 17:00 1~14주차 내용
 
 class Graph:
-	def __init__ (self, size):
-		self.graph = [[0 for _ in range(size)] for _ in range(size)]
+    def __init__ (self, size):
+        self.graph = [[0 for _ in range(size)] for _ in range(size)]
 
 def print_graph(g) :
-	print(' ', end = ' ')
-	for v in range(len(g.graph)) :
-		print(name_ary[v], end =' ')
-	print()
-	for row in range(len(g.graph)) :
-		print(name_ary[row], end =' ')
-		for col in range(len(g.graph)) :
-			print(f"{g.graph[row][col]:2d}", end=' ')
-		print()
-	print()
+    print(' ', end = ' ')
+    for v in range(len(g.graph)) :
+        print(name_ary[v], end =' ')
+    print()
+    for row in range(len(g.graph)) :
+        print(name_ary[row], end =' ')
+        for col in range(len(g.graph)) :
+            print(f"{g.graph[row][col]:2d}", end=' ')
+        print()
+    print()
 
-def find_vertex(g, find_vtx) :
-	stack = list()
-	visited_ary = list()
+# 너비우선으로도 해보기
+def dfs(g, current, visited):
+    visited.append(current) # 0번방 방문 추가
+    for vertex in range(graph_size):
+        if g.graph[current][vertex] > 0 and vertex not in visited: # 가중치가 0보다 크고 리스트에 없으면
+            dfs(g, vertex, visited) #
 
-	current = 0	# 시작 정점
-	stack.append(current)
-	visited_ary.append(current)
-
-	while stack:
-		next = None
-		for j in range(graph_size):
-			if g.graph[current][j] != 0:  # 연결되어 있으면
-				if j in visited_ary:	# 방문한 적이 있는 정점
-					pass
-				else :			# 방문한 적이 없으면
-					next = j  #  다음 정점으로 지정
-					break
-
-		if next is not None:				# 다음에 방문할 정점이 있는 경우
-			current = next
-			stack.append(current)  # push
-			visited_ary.append(current)  # push
-		else :					# 다음에 방문할 정점이 없는 경우
-			current = stack.pop()
-
-	if find_vtx in visited_ary:
-		return True
-	else :
-		return False
+def find_vertex(g, find_vtx) : # 도시 연결 확인
+    visited_array = list()
+    dfs(g, 0, visited_array)
+    return find_vtx in visited_array # True or False 존재하면 True
 
 # 전체 비용 나온 가중치 그래프
 g1 = None
