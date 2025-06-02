@@ -1,6 +1,7 @@
 # 2025-06-02
 
 # 시험 하이테크센터 강당 16일 월요일 17:00 1~14주차 내용
+# 재귀함수 정확한 이해 필요
 
 class Graph:
     def __init__ (self, size):
@@ -127,9 +128,9 @@ for cost, s, e in edges:
 
 # 세로 그래프 만들기 최소 신장 트리
 mst_graph = Graph(graph_size)
-for w, s, e in mst_edges:
-    mst_graph.graph[s][e] = w # start, end 도시 cost 할당
-    mst_graph.graph[e][s] = w
+for cost, s, e in mst_edges:
+    mst_graph.graph[s][e] = cost # start, end 도시 cost 할당
+    mst_graph.graph[e][s] = cost
 
 
 
@@ -137,7 +138,10 @@ print()
 print('최소 비용의 도로 연결도')
 print()
 print_graph(mst_graph)
-print(f"최소 비용의 도로 건설 비용 :  {mst_cost}")
+print(f"최소 비용 :  {mst_cost}")
+print("\n최소 간선 목록")
+for cost, s, e in mst_edges:
+    print(f"{cities[s]} --- {cities[e]} : {cost}")
 
 # total_cost = 0
 # for i in range(graph_size):
