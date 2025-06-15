@@ -44,6 +44,8 @@
 <img width="549" alt="image" src="https://github.com/user-attachments/assets/147db9ea-7ac8-4cc2-af25-a7587a6693da" />
 
 - HTML과 XML 문서도 트리로 표현 가능한 데이터 계층 구조이다.
+    - HTML은 웹 페이지를 만들 때 사용하는 마크업 언어
+    - XML은 문서를 만들 때 사용하는 마크업 언어
 - 보통 HTML과 XML은 태그를 중첩할 수 있어 트리로 표현하며, 각 노드는 HTML이나 XML의 요소를 나타낸다.
 - 문서 객체 모델(DOM Document Object Model) : XML이나 HTML 문서를 트리로 나타내는 언어 독립적 인터페이스. JS가 사용.
 <img width="443" alt="image" src="https://github.com/user-attachments/assets/020ace5b-03c4-4f05-b474-33f4bf38fc1a" />
@@ -54,7 +56,7 @@
 <img width="186" alt="image" src="https://github.com/user-attachments/assets/75d37b12-18b4-4533-a77f-1b15d663ffb7" />
 
 ### 이진 탐색의 장점
-- 해시 테이블은 충돌로 인해 실제 저장하는 데이터보다 열 배 이상의 공간을 사용할 수 있다. 데이터를 순서대로 저장하지 않아, 순서에 따라 이동하지 못한다.
+- 해시 테이블은 충돌로 인해 실제 저장하는 데이터보다 열 배 이상의 공간을 사용한다. 데이터를 순서대로 저장하지 않아, 순서에 따라 이동하지 못한다.
 - 반면, 이진 탐색 트리는 메모리를 낭비하지 않는다. 데이터의 정렬된 순서나 역순으로 빠르게 이동 가능하다.
 
 # 트리 만들기
@@ -332,13 +334,13 @@ def invert(root):
     current = [root] # 너비 우선 탐색 이용
     next = []
     while current:
-        for node in current:
+        for node in current: # 현재 노드 리스트에서 node get
             if node.left:
                 next.append(node.left)
             if node.right:
                 next.append(node.right)
             tmp = node.left # tmp 임시변수
-            node.left = node.right # left에 right 덧씌우기
+            node.left = node.right # left에 right 덧씌우기, data만 바꾼게 아니라 노드 자체를 바꿨기에 자식 노드도 따라간다.
             node.right = tmp # 임시저장한 left 덧씌우기
         current = next #
         next = []
@@ -362,11 +364,15 @@ post_order(root) # 14->9->3->8->10->
 def invert_dfs(node):
     if node:
         # 구조를 바꾸는 건 자기 자신을 재귀적으로 호출해야 한다.
+        # 왼쪽 서브 트리부터 왼쪽으로 끝까지 이동하고 오른쪽 자식 노드까지 이동.
+        # 리프 노드는 None끼리 swap하고 동작이 끝난다. 부모 노드가 그 자식 노드를 서로 swap시킨다.
+        # -> 자식 노드부터 반전시키고 부모 노드 반전.
+
         invert_dfs(node.left)
         invert_dfs(node.right)
 
-        # 자식이 한 쪽만 있어도 swap 필요
-        node.left, node.right = node.right, node.left
+        node.left, node.right = node.right, node.left # 자식이 한 쪽만 있어도 swap 필요
+        
     # if node: post_order로 부르는건 출력할 뿐이지 구조를 바꾸는게 아니다. 불가능.
     #     post_order(node.left)
     #     post_order(node.right)
@@ -383,5 +389,5 @@ def invert_dfs(node):
 - 트리 탐색(전위, 중위, 후위)가 대표적인 예.
 - 반복 가능한 문제를 더 작게 쪼개어 해결할 때 유용하다.
 
-+ Week10
+
 
