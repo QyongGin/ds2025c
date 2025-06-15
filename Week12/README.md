@@ -134,6 +134,18 @@ for i in range(graph_size):
 
 total_cost = total_cost // 2 # 양방향 그래프니까 // 2 "//"는 몫을 구하는 연산자 
 print(f"최소 비용의 도로 건설 비용 :  {total_cost}")
+
+# 최소 신장 엣지 만들기
+for cost, s, e in edges:
+    if ds.merge(s, e):
+        mst_edges.append((cost, s, e)) # 가중치 도시들 추가, 최소 간선 추가
+        mst_cost = mst_cost + cost # 최소 비용 업데이트
+
+# 세로 그래프 만들기 최소 신장 트리
+mst_graph = Graph(graph_size)
+for cost, s, e in mst_edges:
+    mst_graph.graph[s][e] = cost # start, end 도시 cost 할당
+    mst_graph.graph[e][s] = cost
 ```
 
 
